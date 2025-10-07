@@ -17,7 +17,7 @@
 background-color: green; }
  .selected { transform: scale(1.2); box-shadow: 0 0 10px black; }
  #quoteDisplay { font-style: italic; font-size: 1.2em; margin: 10px 0; }
- .section { background: white; border-radius: 10px; padding: 15px; marginbottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+ .section { background: white; border-radius: 10px; padding: 15px; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
  </style>
 </head>
 <body>
@@ -156,8 +156,7 @@ formatQuote(randomQuote, fancyFormat);
  document.body.style.backgroundColor = color;
  });
  });
- const resetBtn = document.querySelector("#resetBtn"); // you could also
-use getElementById('resetBtn')
+ const resetBtn = document.querySelector("#resetBtn"); // you could alsouse getElementById('resetBtn')
  resetBtn.addEventListener("click", () => {
  boxes.forEach(b => b.classList.remove("selected"));
  document.body.style.backgroundColor = "white";
