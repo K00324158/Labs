@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Lab 3: JavaScript Interactivity</title>
+ <style>
+ body { font-family: Arial, sans-serif; background-color: #f3f3f3; padding:
+20px; transition: background-color 0.4s; }
+ h2 { color: #333; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+ button { margin: 5px; padding: 8px 12px; border: none; background-color:
+#3b82f6; color: white; border-radius: 5px; cursor: pointer; }
+ button:hover { background-color: #2563eb; }
+ input { padding: 6px; margin: 5px; }
+ .color-box { width: 80px; height: 80px; display: inline-block; margin: 10px; border-radius: 10px; transition: transform 0.3s; }
+ .red { background-color: red; } .blue { background-color: blue; } .green {
+background-color: green; }
+ .selected { transform: scale(1.2); box-shadow: 0 0 10px black; }
+ #quoteDisplay { font-style: italic; font-size: 1.2em; margin: 10px 0; }
+ .section { background: white; border-radius: 10px; padding: 15px; marginbottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+ </style>
+</head>
+<body>
+    
+ <h1>Lab 3: JavaScript Functions, Callbacks & Interactivity</h1>
+ <div class="section">
+ <h2> Variables & DOM Basics</h2>
+ <p id="info"></p>
+ <button id="changeInfoBtn">Change Info</button>
+ </div>
+
+    <div class="section">
+ <h2> Greeting Generator</h2>
+ <input id="nameInput" placeholder="Enter your name" />
+ <button id="greetBtn">Greet Me</button>
+ <p id="greetingOutput"></p>
+ </div>
+    
+     <div class="section">
+ <h2> Callback Demonstration</h2>
+ <button id="funBtn">Make it Fun!</button>
+ <button id="shoutBtn">Shout It!</button>
+ <p id="funOutput"></p>
+ </div>
+   
+    <div class="section">
+ <h2> Arrow Function Playground</h2>
+ <button id="arrowBtn">Click for Surprise</button>
+ <p id="arrowOutput"></p>
+ </div>
+
+    
+     <div class="section">
+ <h2> Selector Challenge</h2>
+ <div class="color-box red" data-color="red"></div>
+ <div class="color-box blue" data-color="blue"></div>
+ <div class="color-box green" data-color="green"></div>
+ <button id="resetBtn">Reset</button>
+ </div>
+
+     <div class="section">
+ <h2> Quote Generator 2.0</h2>
+ <p id="quoteDisplay">Click a button to show a quote!</p>
+ <button id="newQuoteBtn">New Quote</button>
+ <button id="fancyBtn">Fancy Mode</button>
+ </div>
+
+    <script>
+ // VARIABLES & DOM BASICS
+ let name = "Student";
+ let mood = "curious";
+ let year = 2025;
+ const infoPara = document.getElementById("info");
+ infoPara.innerText = `${name} feels ${mood} in ${year}.`;
+ document.getElementById("changeInfoBtn").addEventListener("click", () => {
+ mood = "creative";
+ infoPara.innerText = `${name} feels ${mood} in ${year}.`;
+ });
+        
+    // FUNCTION FUNDAMENTALS
+ function greet(name) {
+ const hour = new Date().getHours();
+ if (hour < 12) return `Good morning, ${name}!`;
+ else if (hour < 18) return `Good afternoon, ${name}!`;
+ else return `Good evening, ${name}!`;
+ }
+ document.getElementById("greetBtn").addEventListener("click", () => {
+ const inputName = document.getElementById("nameInput").value ||
+"friend";
+ document.getElementById("greetingOutput").innerText = greet(inputName);
+ });
+ 
+        // CALLBACK DEMONSTRATION
+ function displayMessage(callback) {
+ const message = "Learning JavaScript is awesome!";
+ document.getElementById("funOutput").innerText = callback(message);
+ }
+        const addEmojis = text => `✨ ${text} ✨`;
+ const shout = text => text.toUpperCase();
+ document.getElementById("funBtn").addEventListener("click", () =>
+displayMessage(addEmojis));
+ document.getElementById("shoutBtn").addEventListener("click", () =>
+displayMessage(shout));
+
+        // ARROW FUNCTION PLAYGROUND
+ document.getElementById("arrowBtn").addEventListener("click", () => {
+ const emojis = ["🎉", "🌈", "🚀", "🌟"];
+ const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+ document.getElementById("arrowOutput").innerText = `Here’s your emoji:
+${randomEmoji}`;
+ });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //TE GENERATOR 2.0
+ const quotes = [
+ "Stay curious.",
+ "Code with purpose.",
+ "Every bug teaches you something.",
+ "Dream in logic, create in color."
+ ];
+ function formatQuote(quote, formatter) {
+ return formatter(quote);
+ }
+ const plainFormat = q => q;
+ const fancyFormat = q => `🌈 ${q.toUpperCase()} 🌈`;
+ document.getElementById("newQuoteBtn").addEventListener("click", () => {
+ const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quoteDisplay").innerText =
+formatQuote(randomQuote, plainFormat);
+ });
+ document.getElementById("fancyBtn").addEventListener("click", () => {
+ const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+ document.getElementById("quoteDisplay").innerText =
+formatQuote(randomQuote, fancyFormat);
+ });
+ </script>
+    
+    
+    
+    <script>
+ // SELECTOR CHALLENGE
+ const boxes = document.querySelectorAll(".color-box");
+        boxes.forEach(box => {
+ box.addEventListener("click", () => {
+ boxes.forEach(b => b.classList.remove("selected"));
+ box.classList.add("selected");
+ const color = box.dataset.color;
+ document.body.style.backgroundColor = color;
+ });
+ });
+ const resetBtn = document.querySelector("#resetBtn"); // you could also
+use getElementById('resetBtn')
+ resetBtn.addEventListener("click", () => {
+ boxes.forEach(b => b.classList.remove("selected"));
+ document.body.style.backgroundColor = "white";
+ });
+ </script>
+
+    
+    
+    
+    
+</body>
+</html>
